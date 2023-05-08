@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Container } from './MainInfo.styled';
 
 const MainInfo = ({ data }) => {
@@ -9,14 +10,14 @@ const MainInfo = ({ data }) => {
     overview,
     genres,
   } = data;
-  const poster = `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`;
+  const posterImg = `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`;
   const posterAlt = `Poster of ${original_title}`;
   const title = `${original_title} (${release_date.slice(0, 4)})`;
   const genresString = genres.map(({ name }) => name).join(', ');
 
   return (
     <Container>
-      <img src={poster} alt={posterAlt} width="200" height="300" />
+      <img src={posterImg} alt={posterAlt} width="200" height="300" />
       <div>
         <h1>{title}</h1>
         <p>User Score: {vote_average}</p>
@@ -27,6 +28,10 @@ const MainInfo = ({ data }) => {
       </div>
     </Container>
   );
+};
+
+MainInfo.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default MainInfo;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Searchbar = ({ fetchData }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,6 +28,10 @@ const Searchbar = ({ fetchData }) => {
       <button>Search</button>
     </form>
   );
+};
+
+Searchbar.propTypes = {
+  fetchData: PropTypes.func.isRequired,
 };
 
 export default Searchbar;

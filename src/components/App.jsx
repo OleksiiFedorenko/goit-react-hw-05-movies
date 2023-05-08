@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
+import Warning from 'components/Warning/Warning';
 
 const Home = lazy(() => import('../pages/Home/Home'));
 const Movies = lazy(() => import('../pages/Movies/Movies'));
@@ -18,7 +19,12 @@ const App = () => {
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-        <Route path="*" element="" />
+        <Route
+          path="*"
+          element={
+            <Warning message="This page desn't exist, please try another one." />
+          }
+        />
       </Route>
     </Routes>
   );
