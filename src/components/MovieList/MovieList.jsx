@@ -8,10 +8,7 @@ const MovieList = ({ movies }) => {
     <ul>
       {movies.map(({ title, id }) => (
         <li key={id}>
-          <Link
-            to={location.pathname === '/' ? `movies/${id}` : `${id}`}
-            state={{ from: location }}
-          >
+          <Link to={`/movies/${id}`} state={{ from: location }}>
             {title}
           </Link>
         </li>
@@ -21,7 +18,12 @@ const MovieList = ({ movies }) => {
 };
 
 MovieList.propTypes = {
-  movies: PropTypes.array.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default MovieList;

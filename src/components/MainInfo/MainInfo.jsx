@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Container } from './MainInfo.styled';
+import noPoster from 'images/no-poster.png';
 
 const MainInfo = ({ data }) => {
   const {
@@ -10,7 +11,10 @@ const MainInfo = ({ data }) => {
     overview,
     genres,
   } = data;
-  const posterImg = `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`;
+
+  const posterImg = poster_path
+    ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`
+    : noPoster;
   const posterAlt = `Poster of ${original_title}`;
   const title = `${original_title} (${release_date.slice(0, 4)})`;
   const genresString = genres.map(({ name }) => name).join(', ');
@@ -31,7 +35,14 @@ const MainInfo = ({ data }) => {
 };
 
 MainInfo.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    poster_path: PropTypes.string,
+    original_title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    genres: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default MainInfo;

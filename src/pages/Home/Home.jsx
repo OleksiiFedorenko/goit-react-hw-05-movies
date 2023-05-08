@@ -1,13 +1,34 @@
 import { useEffect, useState } from 'react';
 import { fetchTrendingMovies } from 'services/MovieService';
 import MovieList from 'components/MovieList/MovieList';
+import Loader from 'components/Loader/Loader';
+import Warning from 'components/Warning/Warning';
 
 const Home = () => {
-  const [movies, setMovies] = useState();
+  const [movies, setMovies] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    fetchTrendingMovies().then(setMovies).catch(console.log);
+    async function getMovies() {
+      setIsLoading(true);
+      try {
+        const data = await fetchTrendingMovies();
+        setMovies(data);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getMovies();
   }, []);
+
+  if (isLoading) return <Loader />;
+
+  if (isError)
+    return <Warning message="Something went wrong. Please try again later." />;
 
   return (
     <>
