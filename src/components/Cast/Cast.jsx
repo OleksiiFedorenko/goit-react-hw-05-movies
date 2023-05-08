@@ -8,7 +8,7 @@ const Cast = () => {
   const { movieId } = useParams();
   const [castData, setCastData] = useState([]);
   useEffect(() => {
-    fetchMovieCast(movieId).then(setCastData).catch(console.log);
+    if (movieId) fetchMovieCast(movieId).then(setCastData).catch(console.log);
   }, [movieId]);
 
   if (!castData.length) return <Warning message="No cast info found" />;

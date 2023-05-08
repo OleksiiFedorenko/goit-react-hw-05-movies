@@ -7,7 +7,8 @@ const Reviews = () => {
   const { movieId } = useParams();
   const [reviewsData, setReviewsData] = useState([]);
   useEffect(() => {
-    fetchMovieReviews(movieId).then(setReviewsData).catch(console.log);
+    if (movieId)
+      fetchMovieReviews(movieId).then(setReviewsData).catch(console.log);
   }, [movieId]);
 
   if (!reviewsData.length) return <Warning message="No reviews yet" />;
