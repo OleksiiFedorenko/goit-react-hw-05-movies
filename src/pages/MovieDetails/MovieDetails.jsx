@@ -11,21 +11,38 @@ const MovieDetails = () => {
   const location = useLocation();
   const backLinkRef = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
-  const [movieData, setMovieData] = useState();
-  const [error, setError] = useState(false);
+  const [movieData, setMovieData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    fetchMovieDetails(movieId).then(setMovieData).catch(setError);
+    async function getMovieData(id) {
+      setIsLoading(true);
+      try {
+        const data = await fetchMovieDetails(id);
+        setMovieData(data);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getMovieData(movieId);
   }, [movieId]);
+
+  if (isLoading) return <Loader />;
+
+  if (isError)
+    return (
+      <Warning message="This page doesn't exist or something went wrong. Please try different page or try again later." />
+    );
 
   return (
     <Container>
       <BackLink to={backLinkRef.current}>← Go back</BackLink>
       {movieData && <MainInfo data={movieData} />}
       {movieData && <AdditionalInfo />}
-      {error && (
-        <Warning message="This page doesn't exist or something went wrong. Please try different page or try again later." />
-      )}
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
