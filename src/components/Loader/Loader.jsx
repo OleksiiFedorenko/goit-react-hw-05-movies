@@ -1,19 +1,22 @@
 import { Oval } from 'react-loader-spinner';
+import { LoaderConainer } from './Loader.styled';
 
 const Loader = () => {
   return (
-    <Oval
-      height={80}
-      width={80}
-      color="#4fa94d"
-      wrapperStyle={{}}
-      wrapperClass=""
-      visible={true}
-      ariaLabel="oval-loading"
-      secondaryColor="#4fa94d"
-      strokeWidth={2}
-      strokeWidthSecondary={2}
-    />
+    <LoaderConainer>
+      <Oval
+        height={80}
+        width={80}
+        color="#362d62"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        ariaLabel="oval-loading"
+        secondaryColor="#ceccf4"
+        strokeWidth={2}
+        strokeWidthSecondary={2}
+      />
+    </LoaderConainer>
   );
 };
 

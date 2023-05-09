@@ -4,6 +4,7 @@ import { fetchMovieCast } from 'services/MovieService';
 import Loader from 'components/Loader/Loader';
 import Warning from 'components/Warning/Warning';
 import noProfile from 'images/no-profile.png';
+import { List, Item } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -34,21 +35,25 @@ const Cast = () => {
   if (!castData.length) return <Warning message="No cast info found" />;
 
   return (
-    <ul>
+    <List>
       {castData.map(({ cast_id, name, character, profile_path }) => {
         const profileImg = profile_path
           ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${profile_path}`
           : noProfile;
 
         return (
-          <li key={cast_id}>
+          <Item key={cast_id}>
             <img src={profileImg} alt={name} width="150" />
-            <div>Acthor name: {name}</div>
-            <div>Character: {character}</div>
-          </li>
+            <div>
+              <b>{name}</b>
+            </div>
+            <div>
+              <i>Character:</i> {character}
+            </div>
+          </Item>
         );
       })}
-    </ul>
+    </List>
   );
 };
 

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from 'services/MovieService';
 import Loader from 'components/Loader/Loader';
 import Warning from 'components/Warning/Warning';
+import { List } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -15,7 +16,6 @@ const Reviews = () => {
       setIsLoading(true);
       try {
         const data = await fetchMovieReviews(id);
-        console.log(data);
         setReviewsData(data);
       } catch (error) {
         setIsError(true);
@@ -34,14 +34,14 @@ const Reviews = () => {
   if (!reviewsData.length) return <Warning message="No reviews yet" />;
 
   return (
-    <ul>
+    <List>
       {reviewsData.map(({ id, author, content }) => (
         <li key={id}>
-          <div>Author: {author}</div>
+          <h4>Author: {author}</h4>
           <p>{content}</p>
         </li>
       ))}
-    </ul>
+    </List>
   );
 };
 

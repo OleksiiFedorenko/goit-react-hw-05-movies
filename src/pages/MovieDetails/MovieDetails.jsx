@@ -1,13 +1,15 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/MovieService';
 import MainInfo from 'components/MainInfo/MainInfo';
+import AdditionalInfo from 'components/AdditionalInfo/AdditionalInfo';
 import Loader from 'components/Loader/Loader';
 import Warning from 'components/Warning/Warning';
+import { Container, BackLink } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const location = useLocation();
-  const backLinkRef = useRef(location.state?.from ?? '/movies');
+  const backLinkRef = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState();
   const [error, setError] = useState(false);
@@ -17,29 +19,17 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
-      <Link to={backLinkRef.current}>Go back</Link>
+    <Container>
+      <BackLink to={backLinkRef.current}>← Go back</BackLink>
       {movieData && <MainInfo data={movieData} />}
-      {movieData && (
-        <div>
-          <h4>Additional info</h4>
-          <ul>
-            <li>
-              <Link to="cast">Cast</Link>
-            </li>
-            <li>
-              <Link to="reviews">Reviews</Link>
-            </li>
-          </ul>
-        </div>
-      )}
+      {movieData && <AdditionalInfo />}
       {error && (
         <Warning message="This page doesn't exist or something went wrong. Please try different page or try again later." />
       )}
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
-    </>
+    </Container>
   );
 };
 

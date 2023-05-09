@@ -16,6 +16,7 @@ const Movies = () => {
   useEffect(() => {
     async function getMovies(searchQuery) {
       setIsLoading(true);
+      setMovies(null);
       try {
         const data = await fetchMoviesByQuery(searchQuery);
         setMovies(data);
@@ -41,7 +42,7 @@ const Movies = () => {
       {isError && (
         <Warning message="Something went wrong. Please try again later." />
       )}
-      {!movies && (
+      {!movies && !isLoading && (
         <Warning message="Please let us know what are you looking for." />
       )}
       {movies &&

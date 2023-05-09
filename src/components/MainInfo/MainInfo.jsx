@@ -13,7 +13,7 @@ const MainInfo = ({ data }) => {
   } = data;
 
   const posterImg = poster_path
-    ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`
+    ? `https://image.tmdb.org/t/p/w300_and_h450_bestv2${poster_path}`
     : noPoster;
   const posterAlt = `Poster of ${original_title}`;
   const title = `${original_title} (${release_date.slice(0, 4)})`;
@@ -24,7 +24,9 @@ const MainInfo = ({ data }) => {
       <img src={posterImg} alt={posterAlt} width="200" height="300" />
       <div>
         <h1>{title}</h1>
-        <p>User Score: {vote_average}</p>
+        <p>
+          User Score: <b>{vote_average}</b>
+        </p>
         <h2>Overview</h2>
         <p>{overview}</p>
         <h3>Genres</h3>

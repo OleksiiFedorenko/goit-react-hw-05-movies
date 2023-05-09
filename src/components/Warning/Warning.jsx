@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import { Text } from './Warning.styled';
 
 const Warning = ({ message }) => {
-  return <p>{message}</p>;
+  return <Text>{message}</Text>;
 };
 
 Warning.propTypes = {

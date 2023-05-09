@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  margin-top: 10px;
+export const LoaderConainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
 `;
