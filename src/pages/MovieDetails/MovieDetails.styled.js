@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
   text-align: left;
   margin-top: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
 `;
 
 export const BackLink = styled(Link)`
