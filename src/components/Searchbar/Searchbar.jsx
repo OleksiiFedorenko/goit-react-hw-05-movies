@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
@@ -6,9 +5,7 @@ import { Form, Input, Button, ButtonLabel } from './Searchbar.styled';
 
 const Searchbar = ({ fetchData }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [inputValue, setInputValue] = useState(
-    () => searchParams.get('query') ?? ''
-  );
+  const initInputValue = searchParams.get('query') ?? '';
 
   function onSubmit(e) {
     e.preventDefault();
@@ -25,8 +22,7 @@ const Searchbar = ({ fetchData }) => {
       <Input
         type="text"
         name="input"
-        value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
+        defaultValue={initInputValue}
         autoFocus
         placeholder="Search movies"
       ></Input>
